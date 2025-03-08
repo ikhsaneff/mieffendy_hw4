@@ -18,6 +18,8 @@ $search_result = $product_model->searchProduct($query);
     <link rel="stylesheet" href="css/utility-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="scripts/product_sort.js"></script>
+    <script src="scripts/product_search.js"></script>
 </head>
 <body>
     <nav class="navbar">
