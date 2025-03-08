@@ -1,6 +1,6 @@
-# UA Campus Store Remake v2.0
+# UA Campus Store Remake v3.0
 
-This project is an update of the UA Campus Store website remake with additional features such as dynamic content from .csv file and search product feature.
+This project is an update of the UA Campus Store v2.0 website remake with additional features such as ...
 
 ## Features
 - Responsive design
@@ -10,6 +10,8 @@ This project is an update of the UA Campus Store website remake with additional 
 - Footer with additional links
 - [NEW!] Dynamically loaded content from .csv files
 - [NEW!] Search product feature
+- [NEW!]
+- [NEW!]
 
 ## Getting Started
 
@@ -23,12 +25,12 @@ To run this project locally, you need to have the following installed:
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/ikhsaneff/mieffendy_hw3.git
+    git clone https://github.com/ikhsaneff/mieffendy_hw4.git
     ```
 
 2. **Navigate to the project directory:**
     ```bash
-    cd mieffendy_hw3
+    cd mieffendy_hw4
     ```
 
 3. **Run the project using installed PHP:**
