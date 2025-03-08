@@ -1,6 +1,6 @@
 # UA Campus Store Remake v3.0
 
-This project is an update of the UA Campus Store v2.0 website remake with additional features such as ...
+This project is an update of the UA Campus Store website remake with additional features such as ...
 
 ## Features
 - Responsive design
