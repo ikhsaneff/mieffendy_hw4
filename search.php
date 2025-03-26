@@ -3,12 +3,13 @@ require_once './backend/models/productmodels.php';
 
 $product_model = new ProductModels();
 
-$query =  isset($_GET['query']) ? $_GET['query'] : "";
+$query = isset($_GET['query']) ? $_GET['query'] : "";
 
 $search_result = $product_model->searchProduct($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,10 +19,8 @@ $search_result = $product_model->searchProduct($query);
     <link rel="stylesheet" href="css/utility-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <script src="https://unpkg.com/papaparse@5.5.2/papaparse.min.js"></script>
-    <script src="scripts/product_sort.js"></script>
-    <script src="scripts/product_search.js"></script>
 </head>
+
 <body>
     <nav class="nav-container">
         <a href="#" class="hamburger-menu">
@@ -38,18 +37,8 @@ $search_result = $product_model->searchProduct($query);
         </div>
     </nav>
 
-    <main>
-        <?php if (empty($query) && empty($search_result)): ?>
-        <section class="search-area">
-            <h1>Search for Products</h1>
-            <div class="search-container">
-                <form action="search.php" method="GET">
-                    <input type="text" name="query" placeholder="Search for products...">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                </form>    
-            </div>
-        </section>
-        <?php endif; ?>
+    <main >
+        
 
         <?php if (empty($query)): ?>
         <?php elseif (empty($search_result)): ?>
@@ -61,42 +50,51 @@ $search_result = $product_model->searchProduct($query);
         <?php else: ?>
             <section class="search-area-top">
                 <div class="search-container">
-                    <form action="search.php" method="GET">
-                        <input type="text" name="query" placeholder="Search for products...">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>    
+                    <form id="search-product" action="search.php" method="GET">
+                        <div class="search-bar">
+                            <input type="text" name="query" id="search-query" placeholder="Search for products...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
                 <div class="search-bottom">
-                    <div class="recent-search">
-                        <h5>Recent Searches:</h5>
-                        <ul>
+                    <div class="search-botom-item">
+                        <p>Recent Searches:</p>
+                        <ul class="recent-search-list">
                             <li><a href="#">Textbooks</a></li>
                             <li><a href="#">School Supplies</a></li>
                             <li><a href="#">Clothing</a></li>
                             <li><a href="#">Electronics</a></li>
                         </ul>
                     </div>
-                    <div class="sort-search">
-                        <h5>Sort By:</h5>
-                        <select name="sort" id="sort">
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="rating">Rating</option>
-                        </select>
-                    </div>
+
                 </div>
             </section>
             <section class="search-results">
-                <h2>Search Results for "<?php echo $query; ?>":</h2>
+                <div class="search-results-header">
+                    <h2>Search Results for "<?php echo $query; ?>":</h2>
+                    <div class="search-botom-item">
+                        <p>Sort By:</p>
+                        <div>
+                            <select class="select-filter" name="sort" id="sort">
+                                <option value="price-lohi">Price: Low to High</option>
+                                <option value="price-hilo">Price: High to Low</option>
+                                <option value="ratinglohi">Rating: Low to High</option>
+                                <option value="rating-hilo">Rating: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="results-grid">
-                    <?php 
+                    <?php
                     foreach ($search_result as $product):
-                    ?>
-                        <?php
-                            $product_id = $product->getProductProperty("id");
-                            $image = $product_model->getVisualObject($product_id, "featured-image");
                         ?>
-                        
+                        <?php
+                        $product_id = $product->getProductProperty("id");
+                        $image = $product_model->getVisualObject($product_id, "featured-image");
+                        ?>
+
                         <div class="product-card">
                             <a href="product.php?id=<?php echo $product_id; ?>">
                                 <?php echo $image->getHTML(); ?>
@@ -126,4 +124,8 @@ $search_result = $product_model->searchProduct($query);
         </div>
     </footer>
 </body>
+<script src="https://unpkg.com/papaparse@5.5.2/papaparse.min.js"></script>
+<script src="scripts/product_search.js"></script>
+<script src="scripts/product_sort.js"></script>
+
 </html>
