@@ -54,16 +54,7 @@
 
 .recent-search-list li {
     list-style-type: none;
-}
-
-.recent-search-list li a:link,
-.recent-search-list li a:active,
-.recent-search-list li a:visited,
-.recent-search-list li a:hover {
     color: black;
-}
-
-.recent-search-list li a:link {
     padding: 0.5rem;
     border-radius: 5px;
     box-shadow:  1px 2px 2px #00000045;
@@ -71,12 +62,9 @@
     text-decoration-color: black;
 }
 
-.recent-search-list li a:hover {
+.recent-search-list li:hover {
     box-shadow:  1px 2px 2px 2px #00000045;
-}
-
-.recent-search-list li a:active {
-    box-shadow:  1px 2px 2px #00000045;
+    cursor: pointer;
 }
 
 .select-filter {

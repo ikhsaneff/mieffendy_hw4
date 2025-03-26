@@ -32,7 +32,7 @@ $product_model = new ProductModels();
                 <span class="tooltip">Add New Product</span>
             </div>
             <div class="nav-logo">
-                <a href="search.php"><i class="fas fa-search"></i></a>
+                <a href="search.html"><i class="fas fa-search"></i></a>
                 <span class="tooltip">Search Products</span>
             </div>
             <div class="nav-logo">
