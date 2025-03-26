@@ -1,9 +1,7 @@
 .product-detail {
-    margin-top: 100px;
     max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1rem;
+    margin: 2rem auto;
+    padding: 0 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
@@ -37,7 +35,7 @@
 .other-products {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
 }
 
 .other-product-grid {
