@@ -57,7 +57,7 @@ $product_model = new ProductModels();
                     <label for="product-description">Description</label>
                     <textarea name="product-description" id="product-description" rows="5" required></textarea>
                     <label for="product-image">Product Image</label>
-                    <input type="file" name="product-image" id="product-image" step=".1" required>
+                    <input type="text" name="product-image" id="product-image" placeholder="Type the image file name..." required>
                     <div class="form-footer">
                         <button type="submit">Add Product</button>
                     </div>                
@@ -73,6 +73,8 @@ $product_model = new ProductModels();
 
         <section class="featured-products new-products">
             <h2>New Products</h2>
+            <div class="product-grid" id="new-products-list">
+            </div>
         </section>
 
         <!-- The featured products section showcases popular items to entice users to make a purchase. 
@@ -118,5 +120,7 @@ $product_model = new ProductModels();
         </div>
     </footer>
 </body>
+<script src="https://unpkg.com/papaparse@5.5.2/papaparse.min.js"></script>
+<script src="scripts/loadDatas.js"></script>
 <script src="scripts/product_add.js"></script>
 </html>
