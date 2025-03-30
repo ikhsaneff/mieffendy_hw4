@@ -51,5 +51,5 @@ function displayComments() {
     })
 
     commentSection.innerHTML = resultHTML;
-    document.getElementById("comment").value = ""; // Clear the input field after posting the comment
+    document.getElementById("comment").value = "";
 }
