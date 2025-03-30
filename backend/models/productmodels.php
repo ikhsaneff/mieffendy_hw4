@@ -60,18 +60,20 @@ class ProductModels {
         fclose($file);
     }
 
-    function getProductObjects(?int $id = null) {
-        if ($id) {
-            foreach ($this->products as $product) {
-                if ($product->getProductProperty('id') == $id) {
-                    return $product;
-                }
-            }
-        } else if ($id == null) {
+    function getProductObjects(array|int|null $ids = null) {
+        if ($ids === null) {
             return $this->products;
         }
+  
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
 
-        return false;
+        $matchedProducts = array_filter($this->products, function ($product) use ($ids) {
+            return in_array($product->getProductProperty('id'), $ids);
+        });
+
+        return count($ids) === 1 ? reset($matchedProducts) : array_values($matchedProducts);
     }
 
     function getVisualObject(int $id, string $class) {

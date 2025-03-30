@@ -49,17 +49,17 @@ $product_model = new ProductModels();
                 <button><i class="fas fa-times close-button" onclick=closeForm()></i></button>
             </div>
             <div class="form-body">
-                <form id="add-product-form" enctype="multipart/form-data">
+                <form id="the-real-add-product-form">
                     <label for="product-name">Product Name</label>
                     <input type="text" name="product-name" id="product-name" placeholder="Type the product name..." required>
                     <label for="product-price">Price</label>
                     <input type="number" name="product-price" id="product-price" min="0" step="0.1" placeholder="Type the product price..." required>
                     <label for="product-description">Description</label>
-                    <textarea name="product-description" id="product-description" rows="5" required></textarea>
+                    <textarea name="product-description" id="product-description" rows="5" placeholder="Type the product description..." required></textarea>
                     <label for="product-image">Product Image</label>
-                    <input type="text" name="product-image" id="product-image" placeholder="Type the image file name..." required>
+                    <input type="text" name="product-image" id="product-image" placeholder="Type the image file name... (e.g. product1.jpg)" required>
                     <div class="form-footer">
-                        <button type="submit">Add Product</button>
+                        <button type="submit" id="add-product-btn">Add Product</button>
                     </div>                
                 </form>
             </div>
@@ -73,8 +73,7 @@ $product_model = new ProductModels();
 
         <section class="featured-products new-products">
             <h2>New Products</h2>
-            <div class="product-grid" id="new-products-list">
-            </div>
+            <div class="product-grid" id="new-products-list"></div>
         </section>
 
         <!-- The featured products section showcases popular items to entice users to make a purchase. 
@@ -122,5 +121,6 @@ $product_model = new ProductModels();
 </body>
 <script src="https://unpkg.com/papaparse@5.5.2/papaparse.min.js"></script>
 <script src="scripts/loadDatas.js"></script>
+<script src="scripts/displayer.js"></script>
 <script src="scripts/product_add.js"></script>
 </html>

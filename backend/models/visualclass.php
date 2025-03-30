@@ -32,4 +32,10 @@ class Visual {
 
         return $html;
     }
+
+    function noImage(string $class) {
+        $html = "<img src='images/no-image.svg' alt='No Image' class='" .$class ."'>";
+
+        return $html;
+    }
 }

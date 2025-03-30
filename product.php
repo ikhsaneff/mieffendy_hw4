@@ -31,7 +31,7 @@ $product = $product_model->getProductObjects($product_id);
         </a>
         <div class="nav-links">
             <div class="nav-logo">
-                <a href="search.php"><i class="fas fa-search"></i></a>
+                <a href="search.html"><i class="fas fa-search"></i></a>
                 <span class="tooltip">Search Products</span>
             </div>
             <div class="nav-logo">
@@ -71,6 +71,19 @@ $product = $product_model->getProductObjects($product_id);
             </div>
         </section>
 
+        <section class="comments-section">
+            <h2>Reviews and Comments:</h2>
+            <div class="comment-input">
+                <img src="images/user.png" alt="User Avatar" class="user-avatar">
+                <div class="comment-input-area">
+                    <textarea id="comment" placeholder="Leave a comment..."></textarea>
+                    <button onclick="postComment()" id="submit-comment" class="comment-btn">POST</button>
+                </div>
+            </div>
+            <div class="comments-list">
+            </div>            
+        </section>
+
         <!-- Related products section uses a grid layout to display multiple items efficiently.
             Limited to 6 items to avoid overwhelming the user while providing enough options
             to encourage additional purchases and browsing. -->
@@ -103,6 +116,8 @@ $product = $product_model->getProductObjects($product_id);
                 
             </div>
         </section>
+
+        
     </main>
 
     <footer>

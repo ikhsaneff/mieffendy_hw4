@@ -1,26 +1,35 @@
 function loadProductData() {
-    Papa.parse('../data/product.csv', {
+    Papa.parse(`/data/product.csv`, {
         download: true,
         header: true,
         dynamicTyping: true,
+        skipEmptyLines: true,
         complete: function (results) {
-            localStorage.setItem("productData", JSON.stringify(results.data)); // Store the parsed CSV in localStorage
+            localStorage.setItem("productData", JSON.stringify(results.data));
         }
     });
 }
 
 function loadImageData() {
-    Papa.parse('../data/visualcontent.csv', {
+    Papa.parse(`/data/visualcontent.csv`, {
         download: true,
         header: true,
         dynamicTyping: true,
+        skipEmptyLines: true,
+        newline: "\n",
+        delimiter: ",",
         complete: function (results) {
-            localStorage.setItem("imageData", JSON.stringify(results.data)); // Store the parsed CSV in localStorage
+            console.log("Here")
+            localStorage.setItem("imageData", JSON.stringify(results.data));
         }
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    loadProductData();
-    loadImageData();
-});
+addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("productData")) {
+        loadProductData()
+    }
+    if (!localStorage.getItem("imageData")) {
+        loadImageData()
+    }
+})

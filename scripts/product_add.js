@@ -1,93 +1,97 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const newProducts = JSON.parse(localStorage.getItem("newProducts")) || []
+    const newProductsSection = document.querySelector(".new-products")
+    let newProductElement = document.querySelector("#new-products-list")
+
+    if (newProducts.length > 0) {
+        newProductsSection.style.display = "block"
+        newProductElement.innerHTML = displayProducts(newProducts)
+    }
+
+    document.querySelector("#add-product-btn").addEventListener("click", function () {
+        newProductsSection.style.display = "block"
+    })
+
+    console.log("Here1")
+
+    console.log(JSON.parse(localStorage.getItem("productData")))
+    console.log(JSON.parse(localStorage.getItem("imageData")))
+})
+
 function openForm() {
-    document.getElementById("add-product-form").style.display = "flex";
-    const productData = JSON.parse(localStorage.getItem("productData"))
-    console.log(productData);
+    document.getElementById("add-product-form").style.display = "flex"
 }
 
 function closeForm() {
-    document.getElementById("add-product-form").style.display = "none";
+    document.getElementById("the-real-add-product-form").reset()
+    document.getElementById("add-product-form").style.display = "none"
 }
 
-let addProductForm = document.getElementById("add-product-form");
+let addProductForm = document.getElementById("add-product-form")
 
 addProductForm.addEventListener("submit", function (e) {
     e.preventDefault()
 
-    const productName = document.querySelector("#product-name").value.toString()
+    const currentProductData = JSON.parse(localStorage.getItem("productData")) || []
+    const currentImageData = JSON.parse(localStorage.getItem("imageData")) || []
+    const productPOSTurl = "/backend/models/addProducts.php"
+    const imagePOSTurl = "/backend/models/addImages.php"
+
+    const productName = document.querySelector("#product-name").value.toString().replaceAll(",", "")
     const productPrice = document.querySelector("#product-price").value.toString()
     const productDescription = document.querySelector("#product-description").value
-    const productImage = document.querySelector("#product-image").value.toString()
+    const productImage = document.querySelector("#product-image").value.toString().replaceAll(",", "").replaceAll(" ", "")
 
-    const currentLength = JSON.parse(localStorage.getItem("productData")).length
-    const newProductData = {id: currentLength + 1, name: productName, description: productDescription, average_rating: 0, price: parseFloat(productPrice) || 0, num_reviews: 0}
+    const currentProductLength = currentProductData.length
 
-    fetch("/backend/models/addProducts.php", {
+    const newProductData = {id: currentProductLength + 1, name: `${productName}`, description: `${formatDescription(productDescription)}`, average_rating: 0, price: parseFloat(productPrice) || 0, num_reviews: 0}
+    postData(productPOSTurl, newProductData, "productData")
+
+    const currentImageLength = currentImageData.length
+
+    const imageName = productImage.split('.')
+    const image_short_name = (imageName[0]).toString()
+    const image_extension = ("." + imageName[imageName.length - 1]).toString()
+    const prod_id = parseInt(currentProductLength, 10) + 1;
+    const newImageData = {id: currentImageLength + 1, name: `${productName}`, description: `${"featured product image"}`,short_name: `${image_short_name}`, file_type: `${image_extension}`, css_class: `${"featured-image"}`, product_id: prod_id}
+    postData(imagePOSTurl, newImageData, "imageData")
+    const newImageData2 = {id: currentImageLength + 2, name: `${productName}`, description: `${"main product image"}`,short_name: `${image_short_name}`, file_type: `${image_extension}`, css_class: `${"main-image"}`, product_id: prod_id}
+    postData(imagePOSTurl, newImageData2, "imageData")
+    const newImageData3 = {id: currentImageLength + 3, name: `${productName}`, description: `${"other product image"}`,short_name: `${image_short_name}`, file_type: `${image_extension}`, css_class: `${"other-image"}`, product_id: prod_id}
+    postData(imagePOSTurl, newImageData3, "imageData")
+
+    let newProducts = JSON.parse(localStorage.getItem("newProducts")) || []
+    newProducts.unshift(newProductData)
+    localStorage.setItem("newProducts", JSON.stringify(newProducts))
+
+    let newProductElement = document.querySelector("#new-products-list")
+    newProductElement.innerHTML = displayProducts(newProducts)
+    
+    closeForm()
+})
+
+function postData(url, data, localStrgVar) {
+    let storage = JSON.parse(localStorage.getItem(localStrgVar)) || []
+
+    storage.push(data)  
+
+    localStorage.setItem(localStrgVar, JSON.stringify(storage))
+    
+    fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({value: newProductData})
+        body: JSON.stringify({value: data})
+    })
+}
+
+function formatDescription(input) {
+    input = input.replaceAll("\n\n", "\n").split("\n")
+    result = ""
+    input.forEach(function (input) {
+        result += "<p>" + input.trim() + "</p>"
     })
 
-    let newProducts = JSON.parse(localStorage.getItem("newProducts")) || [];
-    newProducts.unshift(newProductData);
-    localStorage.setItem("newProducts", JSON.stringify(newProducts));
-
-    console.log("Form submitted: ", newProducts);
-    closeForm();
-    displayNewProducts()
-});
-
-function displayNewProducts() {
-    let newProducts = JSON.parse(localStorage.getItem("newProducts")) || [];
-    let resultHTML = "";
-
-    newProducts.forEach(result => {
-        console.log("Raw price:", result.price, "Type:", typeof result.price);
-        resultHTML += `
-            <div class="product-card">
-                <a href="product.php?id=${result.id}">
-                    ${insertImage(result.id)}
-                    <p class="text-bold text-black">${result.name}</p>
-                </a>
-                <p>\$${result.price.toFixed(2)}</p>
-                <div class="rating">
-                    ${getRatingStars(result.average_rating)}
-                </div>
-            </div>
-        `;
-    });
-
-    document.querySelector("#new-products-list").innerHTML = resultHTML;
-}
-
-function insertImage(id) {
-    const imageData = JSON.parse(localStorage.getItem("imageData"))
-
-    const image = imageData.find(data => data.product_id === id && data.css_class === "featured-image");
-
-    if (image) {
-        return `<img src="images/${image.short_name}${image.file_type}" alt="${image.name}" class="${image.css_class}">`;
-    }
-
-    return "";
-    
-}
-
-function getRatingStars(rating) {
-    let stars = "";
-
-    for (i = 5; i > 0; i--) {
-        if (rating >= 1) {
-            stars += "<i class='fas fa-star'></i>";
-        } else if (rating >= 0.5) {
-            stars += "<i class='fas fa-star-half-alt'></i>";
-        } else {
-            stars += "<i class='far fa-star'></i>";
-        }
-
-        rating--;
-    }
-
-    return stars;
+    return result
 }

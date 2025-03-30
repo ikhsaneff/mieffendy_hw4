@@ -1,11 +1,26 @@
 <?php
 $current_dir = __DIR__;
-$product_json = json_decode(file_get_contents('php://input'), true);
+$product_json = json_decode(file_get_contents('php://input'), true)['value'];
 
-$csv_row = implode(",",$product_json['value']) . "\n";;
-echo $csv_row;
-$file = fopen($current_dir.'\..\..\data\product.csv', 'a');
+$file_path = $current_dir . '/../../data/product.csv';
 
-fwrite($file, $csv_row);
+$file = fopen($file_path, 'a');
 
-fclose($file);
+if ($file) {
+    $csv_row = array (
+        (int) $product_json['id'] ?? '',
+        (string) $product_json['name'] ?? '',
+        (string) $product_json['description'] ?? '',
+        (float) $product_json['average_rating'] ?? '',
+        (float) $product_json['price'] ?? '',
+        (int) $product_json['num_reviews'] ?? '',
+    );
+
+    fputcsv($file, $csv_row);
+
+    fclose($file);
+} else {
+    http_response_code(500);
+    echo json_encode(['error' => 'Unable to open file']);
+}
+?>

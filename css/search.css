@@ -21,9 +21,7 @@
     flex-direction: column;
     margin: 0 5% 0;
     width: 90vw;
-    /* text-align: center; */
-    /* align-items: flex;
-    justify-content: center; */
+    justify-self: top;
 }
 
 .search-bottom {
