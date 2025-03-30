@@ -13,9 +13,11 @@ function saveSearchHistory() {
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory))
 }
 
-function searchProduct() {
-    query = document.querySelector("#search-query").value || ""
-
+function searchProduct(query) {
+    if (!query) {
+        query = document.querySelector("#search-query").value || ""
+    }
+    
     if (query) {
         cleaned_query = query.toLowerCase().trim()
 
