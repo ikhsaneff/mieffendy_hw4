@@ -11,7 +11,7 @@ This project is an update of the UA Campus Store website remake with additional 
 - [NEW!] Dynamically loaded search results from .csv files
 - [NEW!] Search result sorting
 - [NEW!] Add comment to product posting
-- [NEW!] Add new products!
+- [NEW!] Add new products
 
 ## Getting Started
 

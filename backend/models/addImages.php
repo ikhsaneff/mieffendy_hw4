@@ -17,8 +17,7 @@ if ($file) {
         $product_json['product_id'] ?? '',
     );
 
-    fputcsv($file, $csv_row, ',', '"');  // Ensure fields are enclosed with quotes
-
+    fputcsv($file, $csv_row, ',', '"');
     fclose($file);
 } else {
     http_response_code(500);
