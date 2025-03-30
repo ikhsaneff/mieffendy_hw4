@@ -8,10 +8,10 @@ This project is an update of the UA Campus Store website remake with additional 
 - Hero section with a featured image
 - Featured products section displaying popular items
 - Footer with additional links
-- [NEW!] Dynamically loaded content from .csv files
-- [NEW!] Search product feature
-- [NEW!]
-- [NEW!]
+- [NEW!] Dynamically loaded search results from .csv files
+- [NEW!] Search result sorting
+- [NEW!] Add comment to product posting
+- [NEW!] Add new products!
 
 ## Getting Started
 
